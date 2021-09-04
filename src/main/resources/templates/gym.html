@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+   <head>
+   
+    <script src="/extjs/build/ext-all.js"></script>
+    <link rel = "stylesheet" type = "text/css" 
+         href ="/extjs/build/classic/theme-aria/resources/theme-aria-all.css"/>
+   <link href = "https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel = "stylesheet" />
+     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="Cache-control" content="public" />
+
+	     
+   </head>
+   
+   <body>
+   
+   
+   <!-- <div class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+					aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#" th:href="@{/}">GymGeek</a>
+			</div>
+		</div>
+	</div> -->
+          
+       <link rel="stylesheet" href="graphics/MyApp-all.css"/>
+<!--<script src="/portal/static/userapp/ext/src/grid/MultiSearch.js"></script> -->
+<div id='loading-mask'></div><div id='loading'><div class='loading-indicator'>Gyms are never gonna be the same again...</div></div>
+<script type="text/javascript" src="scripts/gym.js"></script>
+<script type="text/javascript">Ext.onReady(function() {  setTimeout(function(){  Ext.get('loading').remove();  Ext.get('loading-mask').fadeOut({remove:true}); }, 250);}); </script>
+   </body>
+</html>
