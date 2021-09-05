@@ -99,20 +99,27 @@ Ext.define('MyApp.view.newuser.NewUserView', {
                     boxLabel  : 'Άνδρας',
                     name      : 'sex',
                     inputValue: '0',
-                    id        : 'radio1'
-                }, {
-                    boxLabel  : 'Γυναίκα',
-                    name      : 'sex',
-                    inputValue: 'l',
-                    id        : 'radio2',
-					margin:'0 0 0 50'
-                }],
+                    id        : 'radio1',
 					listeners:{
 					change:  {
 						fn: 'onChange',
 						scope :'controller'
 					}
 				}
+                }, {
+                    boxLabel  : 'Γυναίκα',
+                    name      : 'sex',
+                    inputValue: 'l',
+                    id        : 'radio2',
+					margin:'0 0 0 50',
+					listeners:{
+					change:  {
+						fn: 'onChange',
+						scope :'controller'
+					}
+				}
+                }],
+					
 			},
 			{
 				xtype:'container',
@@ -362,6 +369,7 @@ Ext.define('MyApp.view.newuser.NewUserView', {
 			},
 			{
 				xtype:'label',
+				id:'labelNU',
 				bind:{html:'{comm}'},
 				margin:'-12 0 0 7'
 			}

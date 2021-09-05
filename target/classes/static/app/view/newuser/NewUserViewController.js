@@ -3,15 +3,17 @@ Ext.define('MyApp.view.newuser.NewUserViewController', {
     alias: 'controller.newusercontroller',
 
 	onChange:function(button, e, eOpts){
-		if(Ext.getCmp('tdeetNU').getValue() !== "" || Ext.getCmp('tdeetNU').getValue() !== null)
+		if(Ext.getCmp('tdeetNU').getValue() != "")
 		{
-			var panel = button.up().up().up('panel');
+			var panel = button.up().up().up().up('panel');
 			Ext.getCmp('tdeetNU').setValue();
 			Ext.getCmp('tdeemNU').setValue();
 			Ext.getCmp('fatsNU').setValue();
 			Ext.getCmp('carbsNU').setValue();
 			Ext.getCmp('proteinNU').setValue();	
 			panel.getViewModel().set('bmi',null);
+			//Ext.getCmp('bmiNU').setValue();	
+			//Ext.getCmp('labelNU').setValue();
 		}
 	},
 	
@@ -27,14 +29,16 @@ Ext.define('MyApp.view.newuser.NewUserViewController', {
 		var birth=Ext.getCmp('birthdayNU');	var fat=Ext.getCmp('fat_perNU');
 		
 		var today = new Date();
+		if(birth.getValue() !=null && birth.isValid()){
 		var birthDate = birth.getValue();
 		var age = today.getFullYear() - birthDate.getFullYear();
 		var m = today.getMonth() - birthDate.getMonth();
-		if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {age--;}
+		if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {age--;}}
 	
 		
 		if((Ext.getCmp('radio1').checked||Ext.getCmp('radio2').checked)
-		 && height.isValid() && weight.isValid() &&	purpose.isValid() && exce.isValid() && birth.isValid() )
+		 && height.isValid() && weight.isValid() &&	purpose.isValid() && exce.isValid() && birth.isValid() 
+			&& (height.getValue()!=null)&&(weight.getValue()!=null)&&(purpose.getValue()!=null)&&(exce.getValue()!=null)&&(birth.getValue()!=null))
 		{
 			if( fat.getValue() != null )
 			{
@@ -68,8 +72,8 @@ Ext.define('MyApp.view.newuser.NewUserViewController', {
 			panel.getViewModel().set('bmi',parseFloat(bmi));		
 			
 		}
-		else
-		Ext.Msg.alert("Προσοχή","Πρέπει να συμπληρώσετε όλα τα στοιχεία του πρώτου πλαισίου για να γίνει υπολογισμός");
+		else{
+		Ext.Msg.alert("Προσοχή","Πρέπει να συμπληρώσετε όλα τα στοιχεία του πρώτου πλαισίου για να γίνει υπολογισμός");}
 		
 		},
 		
@@ -113,7 +117,7 @@ Ext.define('MyApp.view.newuser.NewUserViewController', {
 			
 			Ext.Ajax.request({
                         url: "/registrationFromAdmin",
-                        headers: { 'Content-Type': 'application/json' },
+                        //headers: { 'Content-Type': 'application/json' },
                         method: 'POST',
 						params: {
                                 firstName: values.firstName,
