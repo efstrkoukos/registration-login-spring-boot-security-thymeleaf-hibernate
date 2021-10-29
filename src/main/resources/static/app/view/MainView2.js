@@ -1,15 +1,18 @@
 Ext.define('MyApp.view.MainView2', {
     extend: 'Ext.container.Viewport',
     alias: 'widget.gymmainview2',
+
     requires: [
     	'Ext.panel.Panel',
+		'Ext.plugin.Viewport',
         'Ext.button.Button',
 		],
     id: 'gymmainView',
     itemId: 'gymmainView',
     layout: 'border',
     defaultListenerScope: true,
-        items: [
+
+    items: [
 	{
 		xtype: 'treelist',
 		region:'west',
@@ -46,7 +49,17 @@ Ext.define('MyApp.view.MainView2', {
             layout: 'fit',
             collapsible: false,
             items:[{xtype:'label',text:'Central'}]
-        }],
+        },
+{
+            xtype: 'toolbar',
+            region: 'center',
+            split: true,
+            itemId: 'contentPanel',
+            layout: 'fit',
+            collapsible: false,
+            items:[{xtype:'label',text:'Central'}]
+        }]
+,	
 
 		onAddUserView: function(button, e, eOpts) {
         var view=Ext.getCmp('gymmainView');

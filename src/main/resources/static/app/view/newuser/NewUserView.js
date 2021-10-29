@@ -14,6 +14,7 @@ Ext.define('MyApp.view.newuser.NewUserView', {
     id: 'newuserView',
     itemId: 'newuserView',
 	title:'<div style="text-align:center;">Εγγραφή Νέου Χρήστη</div>',
+	scrollable:'y',
 	layout: {
         type: 'vbox',
         align: 'center',
@@ -21,6 +22,7 @@ Ext.define('MyApp.view.newuser.NewUserView', {
     },
 	items:[{
 		xtype:'form',
+		scrollable:'y',
 		width:'100%',
 		height:'100%',
 		layout: {
@@ -38,6 +40,7 @@ Ext.define('MyApp.view.newuser.NewUserView', {
 				width:500,				
 				fieldLabel: 'Όνομα',
 				name:'firstName',
+				allowBlank:false,
                 labelWidth: 100,
 				centered:true,
 				maxLength:100
@@ -48,6 +51,7 @@ Ext.define('MyApp.view.newuser.NewUserView', {
 				anchor:'70%',
 				width:500,
 				fieldLabel: 'Επώνυμο',
+				allowBlank:false,
 				name:'lastName',
                 labelWidth: 100,
 				centered:true,
@@ -75,6 +79,7 @@ Ext.define('MyApp.view.newuser.NewUserView', {
 				altFormats: 'd-m-Y|d/m/Y',
 				centered:true,
 				maxLength:100,
+				allowBlank:false,
 				validateOnChange: false,
                 validateOnBlur: true,
 				listeners:{
@@ -90,6 +95,7 @@ Ext.define('MyApp.view.newuser.NewUserView', {
             fieldLabel : 'Φύλο',
             defaultType: 'radiofield',
 			id:'radiofieldNU',
+			allowBlank:false,
             defaults: {
                 flex: 1
             },
@@ -167,8 +173,8 @@ Ext.define('MyApp.view.newuser.NewUserView', {
 				layout:{type:'hbox'},
 				items:[{
 					xtype:'numberfield',
-					emptyText:'%',
-					fieldLabel:'Σωματικό λίπος',
+					emptyText:'Προαιρετικό πεδίο',
+					fieldLabel:'Σωματικό λίπος %',
 					name:'fat_per',
 					id:'fat_perNU',
 					listeners:{
@@ -189,13 +195,13 @@ Ext.define('MyApp.view.newuser.NewUserView', {
 					id:'purposeNU',
 		            store: [{
 		                abbr: 'Αύξηση Βάρους',
-		                name: 'BU'
+		                name: 1
 		            }, {
 		                abbr: 'Διατήρηση Βάρους',
-		                name: 'MA'
+		                name: 0
 		            }, {
 		                abbr: 'Μείωση Βάρους',
-		                name: 'LO'
+		                name: -1
 		            }, ],
 					listeners:{
 					change:  {
@@ -251,6 +257,7 @@ Ext.define('MyApp.view.newuser.NewUserView', {
 				width:500,				
 				fieldLabel: 'Τηλέφωνο',
 				name:'tel',
+				id:'telNU',
                 labelWidth: 100,
 				centered:true,
 				maxLength:100,
@@ -267,6 +274,7 @@ Ext.define('MyApp.view.newuser.NewUserView', {
 				width:500,
 				fieldLabel: 'email',
 				name:'email',
+				id:'emailNU',
                 labelWidth: 100,
 				centered:true,
 				maxLength:100,
@@ -283,6 +291,7 @@ Ext.define('MyApp.view.newuser.NewUserView', {
 				width:500,
 				fieldLabel: 'Username',
 				name:'username',
+				id:'usrNU',
                 labelWidth: 100,
 				centered:true,
 				maxLength:100,
@@ -297,10 +306,15 @@ Ext.define('MyApp.view.newuser.NewUserView', {
 		title:'<div style="text-align:center;">Μετρήσεις</div>',
 		width:'70%',
 		margin:'20 0 0 0',
+		layout: {
+        type: 'vbox',
+        align: 'center',
+    	},
 		items:[
-			{xtype:'button',
+			{
+			xtype:'button',
 			text:'Υπολογισμός',
-			margin:'10 0 0 300',
+			margin:'10 0 10 0',
 			width:150,
 			listeners: {
                         click: {
@@ -445,9 +459,10 @@ Ext.define('MyApp.view.newuser.NewUserView', {
 		{
 			xtype:'button',
 			text:'Εγγραφή νέου χρήστη',
+			id:'submitbtnNU',
 			height:50,
 			width:200,
-			margin:'15 0 0 0',
+			margin:'15 0 10 0',
 			listeners: {
                         click: {
                             fn: 'onSubmit',

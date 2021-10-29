@@ -1,5 +1,6 @@
 package net.javaguides.springboot.model;
 
+import java.sql.Timestamp;
 import java.util.Collection;
 
 import javax.persistence.CascadeType;
@@ -43,18 +44,80 @@ public class User {
 	
 	private Collection<Role> roles;
 	
+	private Timestamp birthday;
+	private Long gymid;
+	private Long gender;
+	private String username;
+	private Long telephone;
+	private Boolean enabled;
+	
+	
 	public User() {
 		
 	}
 	
-	public User(String firstName, String lastName, String email, String password, Collection<Role> roles) {
+	public User(String firstName, String lastName, String email, String password, Collection<Role> roles,Timestamp birthday,Long gymid,Long gender,String username,Long telephone,Boolean enabled) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
 		this.password = password;
 		this.roles = roles;
+		this.birthday=birthday;
+		this.gymid=gymid;
+		this.gender=gender;
+		this.username=username;
+		this.telephone=telephone;
+		
 	}
+	public Boolean getEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(Boolean enabled) {
+		this.enabled = enabled;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public Long getTelephone() {
+		return telephone;
+	}
+
+	public void setTelephone(Long telephone) {
+		this.telephone = telephone;
+	}
+
+	public Timestamp getBirthday() {
+		return birthday;
+	}
+
+	public void setBirthday(Timestamp birthday) {
+		this.birthday = birthday;
+	}
+
+	public Long getGymid() {
+		return gymid;
+	}
+
+	public void setGymid(Long gymid) {
+		this.gymid = gymid;
+	}
+
+	public Long getGender() {
+		return gender;
+	}
+
+	public void setGender(Long gender) {
+		this.gender = gender;
+	}
+
 	public Long getId() {
 		return id;
 	}

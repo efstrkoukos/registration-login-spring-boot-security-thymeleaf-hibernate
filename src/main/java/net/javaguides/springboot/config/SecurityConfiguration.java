@@ -11,14 +11,36 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import net.javaguides.springboot.JwtAuthenticationEntryPoint;
+import net.javaguides.springboot.JwtRequestFilter;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+
 import net.javaguides.springboot.service.UserService;
+
+import org.springframework.security.authentication.AuthenticationManager;
+
 
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)//new
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;//new
+
+	@Autowired
+	private UserDetailsService jwtUserDetailsService;//new
+
+	@Autowired
+	private JwtRequestFilter jwtRequestFilter;//new
 	
 	@Bean
     public BCryptPasswordEncoder passwordEncoder() {
@@ -33,35 +55,77 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         return auth;
     }
 	
+	@Autowired
+	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {//new
+		// configure AuthenticationManager so that it knows from where to load
+		// user for matching credentials
+		// Use BCryptPasswordEncoder
+		auth.userDetailsService(jwtUserDetailsService).passwordEncoder(passwordEncoder());
+	}
+	
+	@Bean
 	@Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.authenticationProvider(authenticationProvider());
-    }
+	public AuthenticationManager authenticationManagerBean() throws Exception {//new
+		return super.authenticationManagerBean();
+	}
 	
 	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers(
-				 "/registration**",
-				 "/gym**",
-	                "/js/**",
-	                "/css/**",
-	                "/img/**",
-	                "/registrationFromAdmin**",
-	                "/recources/**").permitAll()
-		.anyRequest().authenticated()
-		.and()
-		.formLogin()
-		.loginPage("/login")
-		.permitAll()
-		.and()
-		.logout()
-		.invalidateHttpSession(true)
-		.clearAuthentication(true)
-		.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-		.logoutSuccessUrl("/login?logout")
-		.permitAll();
-		
-		http.csrf().disable();
+	protected void configure(HttpSecurity httpSecurity) throws Exception {//new
+		// We don't need CSRF for this example
+		httpSecurity.csrf().disable()
+				// dont authenticate this particular request
+				.authorizeRequests().antMatchers("/authenticate",
+						"/authenticateme",
+						"/registration**",
+						"/gym**",
+						"/js/**",
+						"/css/**",
+						"/img/**",
+						"/recources/**").permitAll().
+				// all other requests need to be authenticated
+				anyRequest().authenticated().and().
+				formLogin()
+					.loginPage("/login")
+					.permitAll()
+					.and().
+				// make sure we use stateless session; session won't be used to
+				// store user's state.
+				exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
+				.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+		//httpSecurity.formLogin().defaultSuccessUrl("/gym.html", true);
+
+		// Add a filter to validate the tokens with every request
+		httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 	}
+	//@Override
+    //protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+    //    auth.authenticationProvider(authenticationProvider());
+    //}
+	
+	//@Override
+	//protected void configure(HttpSecurity http) throws Exception {
+	//	http.authorizeRequests().antMatchers(
+	//			 "/registration**",
+	//			 "/gym**",
+	//                "/js/**",
+	 //               "/css/**",
+	 //               "/img/**",
+	 //               "/registrationFromAdmin**",
+	 //               "/recources/**").permitAll()
+	//	.anyRequest().authenticated()
+	//	.and()
+	//	.formLogin()
+	//	.loginPage("/login")
+	//	.permitAll()
+	//	.and()
+	//	.logout()
+	//	.invalidateHttpSession(true)
+	//	.clearAuthentication(true)
+	//	.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+	//	.logoutSuccessUrl("/login?logout")
+	//	.permitAll();
+		
+	//	http.csrf().disable();
+	//}
 
 }

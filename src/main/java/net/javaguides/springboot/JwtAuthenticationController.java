@@ -1,35 +1,34 @@
-package net.javaguides.springboot.web;
+package net.javaguides.springboot;
 
-import java.util.HashMap;
-import net.javaguides.springboot.JwtAuthenticationController;
-import net.javaguides.springboot.JwtTokenUtil;
-import net.javaguides.springboot.model.JwtRequest;
-import net.javaguides.springboot.model.JwtResponse;
-import net.javaguides.springboot.service.UserServiceImpl;
-
-import java.util.Map;
-
-import javax.servlet.http.HttpServletResponse;
+import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-
+import org.springframework.web.bind.annotation.RestController;
+//import com.javainuse.service.JwtUserDetailsService;
+import net.javaguides.springboot.service.UserServiceImpl;
+import net.javaguides.springboot.web.MainController;
+import net.javaguides.springboot.JwtTokenUtil;
+import net.javaguides.springboot.model.JwtRequest;
+import net.javaguides.springboot.model.JwtResponse;
 
 @Controller
-public class MainController {
+@CrossOrigin
+public class JwtAuthenticationController {
+
 	@Autowired
 	private AuthenticationManager authenticationManager;
 
@@ -38,43 +37,10 @@ public class MainController {
 
 	@Autowired
 	private UserServiceImpl userDetailsService;
-	
-	@GetMapping("/login")
-	public String login() {
-		return "login";
-	}
-	
-	/*
-	 * @PostMapping("login") public String login(@RequestParam String
-	 * username, @RequestParam String password, HttpServletResponse res) {
-	 * 
-	 * JwtRequest auth= new JwtRequest(); auth.setUsername(username);
-	 * auth.setPassword(password);
-	 * 
-	 * Map<String, Object> user = new HashMap<>(); user.put("username", username);
-	 * user.put("password", "password");
-	 * JwtAuthenticationController.createAuthenticationToken(auth);
-	 * 
-	 * 
-	 * }
-	 */
-	
-	@GetMapping("/")
-	public static String home() {
-		return "gym";
-	}
-	
-	@RequestMapping(value = "/authenticateme", method = RequestMethod.POST)
-	@ResponseBody
-	public  ResponseEntity<?> logmein(
-            @RequestParam(value = "username")
-            final String username,
 
-            
-            @RequestParam(value = "password")
-            final String password) throws Exception {
+	@RequestMapping(value = "/authenticate", method = RequestMethod.POST)
+	public  ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
 		
-		JwtRequest authenticationRequest=new JwtRequest(username,password);
 		authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
 
 		final UserDetails userDetails = userDetailsService
@@ -82,9 +48,31 @@ public class MainController {
 
 		final String token = jwtTokenUtil.generateToken(userDetails);
 		
-		
 		return ResponseEntity.ok(new JwtResponse(token));
 	}
+	/*
+	 * @RequestMapping(value = "/authenticateme", method = RequestMethod.POST)
+	 * 
+	 * @ResponseBody public void logmein(
+	 * 
+	 * @RequestParam(value = "username") final String username,
+	 * 
+	 * 
+	 * @RequestParam(value = "password") final String password) throws Exception {
+	 * 
+	 * JwtRequest authenticationRequest=new JwtRequest(username,password);
+	 * authenticate(authenticationRequest.getUsername(),
+	 * authenticationRequest.getPassword());
+	 * 
+	 * final UserDetails userDetails = userDetailsService
+	 * .loadUserByUsername(authenticationRequest.getUsername());
+	 * 
+	 * final String token = jwtTokenUtil.generateToken(userDetails);
+	 * MainController.home();
+	 * 
+	 * //return "gym.html"; }
+	 */
+
 	private void authenticate(String username, String password) throws Exception {
 		try {
 			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));

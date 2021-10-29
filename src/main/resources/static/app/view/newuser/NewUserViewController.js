@@ -78,8 +78,16 @@ Ext.define('MyApp.view.newuser.NewUserViewController', {
 		},
 		
 	onSubmit:function(button, e, eOpts) {
-		/*if(Ext.getCmp('tdeetNU').getValue() == null || Ext.getCmp('tdeetNU').getValue()=="")
-			Ext.Msg.alert("Προσοχή","Πρέπει να πατήσετε το κουμπί \"Υπολογισμός\" πρίν κάνετε εγγραφή");
+		Ext.getCmp('submitbtnNU').disabled=true;
+		/*if((Ext.getCmp('tdeetNU').getValue() == null || Ext.getCmp('tdeetNU').getValue()=="")&&
+		(Ext.getCmp('telNU').getValue()!=null && Ext.getCmp('emailNU').getValue()!=null &&Ext.getCmp('usrNU').getValue()!=null && Ext.getCmp('emailNU').isValid() )){//TODO and new fieldset is not empty
+			//Ext.Msg.alert("Προσοχή","Πρέπει να πατήσετε το κουμπί \"Υπολογισμός\" πρίν κάνετε εγγραφή");
+			Ext.Msg.alert("Προσοχή","Πρέπει να συμπληρώσετε όλα τα πεδία πρίν κάνετε εγγραφή");
+			Ext.getCmp('submitbtnNU').disabled=false;}*/
+			if(!button.up('form').isValid()){
+			Ext.Msg.alert('Αποτυχία Υποβολής', 'Παρακαλώ διορθώστε τα λάθος πεδία');//button.up('form').markInvalid();
+			Ext.getCmp('submitbtnNU').disabled=false;
+			}
 		else
 		{
 			var conffun = function(buttonText) {
@@ -96,25 +104,26 @@ Ext.define('MyApp.view.newuser.NewUserViewController', {
 		var submitfun = function(){
             var form = button.up().up('panel').down('form');
                 values = form.getValues();
-			debugger;
-*/
+			//debugger;
+
 
 				var successCallback = function(resp, ops) {
-                        Ext.Msg.alert('Επιτυχής Διαγραφή', 'Η αίτηση διαγράφηκε');
+                        Ext.Msg.alert('Επιτυχής Εγγραφή', 'Ο χρήστης '+values.firstName+' '+values.lastName+' είναι πλέον μέλος της υπηρεσίας!');
+						var jsonresp=Ext.JSON.decode(resp.responseText);
+						var uid=jsonresp.userid;
+						var view=Ext.getCmp('gymmainView');
+        				var center = view.getComponent('contentPanel');
+						// TODO show main panel
+        				center.removeAll();
 
                     };
 
                     // Failure
                     var failureCallback = function(resp, ops) {
-                        Ext.Msg.alert('Αποτυχία Διαγραφής', 'Η αίτηση δεν διαγράφηκε');
+						Ext.getCmp('submitbtnNU').disabled=false;
+                        Ext.Msg.alert('Αποτυχία Εγγραφής', 'Η εγγραφή του χρήστη απέτυχε');
                     };
-			var values = Ext.Object.getValues({
-			    firstName: 'Jacky',
-			    lastName: 'food',
-				email:'ss@ss.ss',
-				password:'ssss'
-			});
-			
+
 			Ext.Ajax.request({
                         url: "/registrationFromAdmin",
                         //headers: { 'Content-Type': 'application/json' },
@@ -123,7 +132,24 @@ Ext.define('MyApp.view.newuser.NewUserViewController', {
                                 firstName: values.firstName,
                                 lastName: values.lastName,
                                 email: values.email,
-								password:values.password
+								password:values.password,
+								birthday:values.birthday,
+								sex:values.sex,
+								height:values.height,
+								weight:values.weight,
+								fat:values.fat_per,
+								purpose:values.purpose,
+								exce:values.exce_lvl,
+								telephone:values.tel,
+								username:values.username,
+								tdeet:values.tdeet,
+								tdeem:values.tdeem,
+								bmi:values.bmi,
+								protein:values.protein,
+								carbs:values.carbs,
+								fats:values.fats
+								
+								
                             },
                         success: successCallback,
                         failure: failureCallback
@@ -132,6 +158,6 @@ Ext.define('MyApp.view.newuser.NewUserViewController', {
 
 
 				}
-	//	}
-	//}
+		}
+	}
     });

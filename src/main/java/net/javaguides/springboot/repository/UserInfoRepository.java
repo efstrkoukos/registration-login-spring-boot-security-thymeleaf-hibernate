@@ -13,28 +13,13 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import net.javaguides.springboot.model.User;
+import net.javaguides.springboot.model.UserInfo;
 
 @Repository
 @Transactional(propagation = Propagation.REQUIRES_NEW)
-@RepositoryRestResource(collectionResourceRel = "user", path = "user")
-public interface UserRepository extends JpaRepository<User, Long>{
-	User findByEmail(String email);
-	
-	@Query(
-            value = "SELECT o.lastName FROM User o"
-                    + " WHERE o.id =:#{#id}",
-            nativeQuery = false
-    )
-	
-    public String findFirstName(@Param("id") Long id);
-	
-	@Query(
-            value = "SELECT o.id FROM User o"
-                    + " WHERE o.email =:#{#email} order by o.id desc",
-            nativeQuery = false
-    )
-	
-    public List<Integer> findUserId(@Param("email") String email);
-	
-	
+@RepositoryRestResource(collectionResourceRel = "user_info", path = "user_info")
+public interface UserInfoRepository extends JpaRepository<UserInfo, Long>{
+	/*
+	 * @SuppressWarnings("unchecked") UserInfo save (UserInfo entity);
+	 */	
 }
