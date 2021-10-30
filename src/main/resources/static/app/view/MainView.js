@@ -3,7 +3,8 @@ Ext.define('MyApp.view.MainView', {
     alias: 'widget.gymmainview',
     requires: [
     	'Ext.panel.Panel',
-        'Ext.button.Button'
+        'Ext.button.Button',
+		'MyApp.view.newuser.NewUserView'
 		],
     id: 'gymmainView',
     itemId: 'gymmainView',

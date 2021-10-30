@@ -24,8 +24,13 @@ Ext.application({
     name: 'MyApp',
 
     launch: function() {
-
-					//αρχικοποίηση κεντρικού πανελ
+					XMLHttpRequest.prototype.origOpen = XMLHttpRequest.prototype.open;
+			     	XMLHttpRequest.prototype.open   = function () {
+			     	    this.origOpen.apply(this, arguments);
+			     	    this.setRequestHeader('Authorization', 'Bearer ' + sessionStorage.getItem('GGjwt'));
+			     	   	this.setRequestHeader('Accept-Language', '<%=main.getLocale()%>');
+			     	};
+								//αρχικοποίηση κεντρικού πανελ
                     var  tt = Ext.create('MyApp.view.MainView');
                     tt.show();
                     //var view = Ext.getCmp('companymainView');

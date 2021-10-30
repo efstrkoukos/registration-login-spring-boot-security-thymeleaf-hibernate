@@ -8,9 +8,12 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
 	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
 	crossorigin="anonymous">
-	
+<script type = "text/javascript" 
+         src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js">
+      </script>	
 </head>
 <body>
+
 
 	<!-- create navigation bar ( header) -->
 	<nav class="navbar navbar-inverse navbar-fixed-top">
@@ -35,7 +38,7 @@
 			<div class = "col-md-6 col-md-offset-3">
 				
 				<h1> User Login Page </h1>
-				<form th:action="@{/authenticateme}" method="post">
+				<form id="new-period-form" th:action="@{/signin}" method="post">
 					
 					<!-- error message -->
 					<div th:if="${param.error}">
@@ -63,7 +66,7 @@
 					<div class="form-group">
 						<div class="row">
 							<div class="col-sm-6 col-sm-offset-3">
-								<input type="submit" name="login-submit" id="login-submit"
+								<input type="button" name="login-submit" id="login-submit"
 									class="form-control btn btn-primary" value="Log In" />
 							</div>
 						</div>
@@ -76,5 +79,28 @@
 			</div>
 		</div>
 	</div>
+	<script th:inline="javascript">
+	$(function() {
+	    $('#login-submit').click(saveForm);
+	});
+
+
+	function saveForm(){
+	    $.ajax({
+	        method: "POST",
+	        url: "/signin",
+	        data: $('#new-period-form').serialize(),
+	        success: function(response){
+	            if(response) {
+	            	var obj = JSON.parse(JSON.stringify(response));
+	            	sessionStorage.setItem("GGjwt", obj.token);
+	            	var wp=window.location.href;
+	            	wp=wp.replace("/login","/")
+	            	window.location.href= wp;
+	
+	            }
+	        }
+	    });
+	}</script>
 </body>
 </html>

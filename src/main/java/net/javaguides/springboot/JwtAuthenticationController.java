@@ -50,28 +50,7 @@ public class JwtAuthenticationController {
 		
 		return ResponseEntity.ok(new JwtResponse(token));
 	}
-	/*
-	 * @RequestMapping(value = "/authenticateme", method = RequestMethod.POST)
-	 * 
-	 * @ResponseBody public void logmein(
-	 * 
-	 * @RequestParam(value = "username") final String username,
-	 * 
-	 * 
-	 * @RequestParam(value = "password") final String password) throws Exception {
-	 * 
-	 * JwtRequest authenticationRequest=new JwtRequest(username,password);
-	 * authenticate(authenticationRequest.getUsername(),
-	 * authenticationRequest.getPassword());
-	 * 
-	 * final UserDetails userDetails = userDetailsService
-	 * .loadUserByUsername(authenticationRequest.getUsername());
-	 * 
-	 * final String token = jwtTokenUtil.generateToken(userDetails);
-	 * MainController.home();
-	 * 
-	 * //return "gym.html"; }
-	 */
+	
 
 	private void authenticate(String username, String password) throws Exception {
 		try {

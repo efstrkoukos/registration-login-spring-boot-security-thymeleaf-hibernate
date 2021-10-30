@@ -75,13 +75,18 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		httpSecurity.csrf().disable()
 				// dont authenticate this particular request
 				.authorizeRequests().antMatchers("/authenticate",
-						"/authenticateme",
+						"/signin",
 						"/registration**",
 						"/gym**",
 						"/js/**",
 						"/css/**",
 						"/img/**",
-						"/recources/**").permitAll().
+						"/recources/**",
+						"/",
+						"/extjs/**",
+						"/graphics/**",
+						"/scripts/gym.js",
+						"/app/view/MainView.js").permitAll().
 				// all other requests need to be authenticated
 				anyRequest().authenticated().and().
 				formLogin()
@@ -92,7 +97,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				// store user's state.
 				exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-		//httpSecurity.formLogin().defaultSuccessUrl("/gym.html", true);
+		//httpSecurity.formLogin().loginProcessingUrl("/signin");
+		//httpSecurity.formLogin().defaultSuccessUrl("/gym");
 
 		// Add a filter to validate the tokens with every request
 		httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);

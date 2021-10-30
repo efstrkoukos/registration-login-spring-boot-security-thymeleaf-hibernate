@@ -25,6 +25,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 
 
@@ -44,33 +46,20 @@ public class MainController {
 		return "login";
 	}
 	
-	/*
-	 * @PostMapping("login") public String login(@RequestParam String
-	 * username, @RequestParam String password, HttpServletResponse res) {
-	 * 
-	 * JwtRequest auth= new JwtRequest(); auth.setUsername(username);
-	 * auth.setPassword(password);
-	 * 
-	 * Map<String, Object> user = new HashMap<>(); user.put("username", username);
-	 * user.put("password", "password");
-	 * JwtAuthenticationController.createAuthenticationToken(auth);
-	 * 
-	 * 
-	 * }
-	 */
-	
 	@GetMapping("/")
-	public static String home() {
+	public String home() {
 		return "gym";
 	}
 	
-	@RequestMapping(value = "/authenticateme", method = RequestMethod.POST)
-	@ResponseBody
+	@GetMapping("/redirect")
+	public RedirectView  gotohome() {
+		return new RedirectView ("/");
+	}
+	
+	@RequestMapping(value = "/signin", method = RequestMethod.POST)
 	public  ResponseEntity<?> logmein(
             @RequestParam(value = "username")
             final String username,
-
-            
             @RequestParam(value = "password")
             final String password) throws Exception {
 		
@@ -79,9 +68,8 @@ public class MainController {
 
 		final UserDetails userDetails = userDetailsService
 				.loadUserByUsername(authenticationRequest.getUsername());
-
-		final String token = jwtTokenUtil.generateToken(userDetails);
 		
+		final String token = jwtTokenUtil.generateToken(userDetails);
 		
 		return ResponseEntity.ok(new JwtResponse(token));
 	}
