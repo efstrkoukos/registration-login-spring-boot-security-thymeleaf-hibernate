@@ -19,9 +19,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import net.javaguides.springboot.model.Role;
 import net.javaguides.springboot.model.User;
 import net.javaguides.springboot.model.UserInfo;
 import net.javaguides.springboot.model.UserMacros;
+import net.javaguides.springboot.repository.RoleRepository;
 import net.javaguides.springboot.repository.UserInfoRepository;
 import net.javaguides.springboot.repository.UserMacrosRepository;
 import net.javaguides.springboot.repository.UserRepository;
@@ -40,6 +42,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 public class UserAdminRegistrationController {
 	
 	@Autowired private UserInfoRepository userInfoRepo;
+	@Autowired
+	private RoleRepository roleRepository;
 	
 	 
 	@Autowired
@@ -100,7 +104,7 @@ public class UserAdminRegistrationController {
     	new Timestamp(time);
     	Timestamp ts=new Timestamp(time);  
     	
-    	
+    	Role memberRole = roleRepository.findByName("MEMBER");
     	UserRegistrationDto newUsr =new UserRegistrationDto();
     	newUsr.setFirstName(firstName);
     	newUsr.setLastName(lastName);
@@ -111,6 +115,7 @@ public class UserAdminRegistrationController {
     	newUsr.setGender(sex);
     	newUsr.setTelephone(telephone);
     	newUsr.setUsername(username);
+    	newUsr.setRole(memberRole);
     	try {
     	userService.save(newUsr);}catch(Exception e) {
     		e.printStackTrace();

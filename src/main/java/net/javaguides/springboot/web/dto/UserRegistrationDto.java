@@ -2,6 +2,8 @@ package net.javaguides.springboot.web.dto;
 
 import java.sql.Timestamp;
 
+import net.javaguides.springboot.model.Role;
+
 public class UserRegistrationDto {
 	private String firstName;
 	private String lastName;
@@ -13,7 +15,16 @@ public class UserRegistrationDto {
 	private String username;
 	private Long telephone;
 	private Boolean enabled;
+	private Role role;
 	
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
+	}
+
 	public Boolean getEnabled() {
 		return enabled;
 	}

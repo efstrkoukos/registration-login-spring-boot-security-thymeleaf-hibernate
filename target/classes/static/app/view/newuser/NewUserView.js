@@ -294,6 +294,7 @@ Ext.define('MyApp.view.newuser.NewUserView', {
 				//width:500,
 				fieldLabel: 'Username',
 				hidden:true,
+				disabled:true,
 				name:'username',
 				id:'usrNU',
                 labelWidth: 100,

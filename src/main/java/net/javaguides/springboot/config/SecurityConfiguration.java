@@ -76,7 +76,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				// dont authenticate this particular request
 				.authorizeRequests().antMatchers("/authenticate",
 						"/signin",
-						//"/registration**", unhide only for admin's war
+						"/registration**", //unhide only for admin's war
 						"/gym**",
 						"/js/**",
 						"/css/**",
