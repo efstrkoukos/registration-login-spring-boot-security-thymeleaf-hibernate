@@ -31,12 +31,14 @@
 	</div> -->
           
        <link rel="stylesheet" href="graphics/MyApp-all.css"/>
+       <link rel="stylesheet" type="text/css" href="/app/view/MainView3.css"/>
 <!--<script src="/portal/static/userapp/ext/src/grid/MultiSearch.js"></script> -->
-<div id='loading-mask'></div><div id='loading'><div class='loading-indicator'>Gyms are never gonna be the same again...</div></div>
+<!-- <div id='loading-mask'></div><div id='loading'><div class='loading-indicator'>Gyms are never gonna be the same again...</div></div> -->
+<div id='loadin-mask'></div><div id='loadin'><div class='loadin-indicator'></div></div>
 <script type="text/javascript" src="scripts/gym.js"></script>
 <script type="text/javascript">Ext.onReady(function() {  
 	setTimeout(function(){  
-		Ext.get('loading').remove();  
-		Ext.get('loading-mask').fadeOut({remove:true}); }, 250);}); </script>
+		Ext.get('loadin').remove();  
+		Ext.get('loadin-mask').fadeOut({remove:true}); }, 250);}); </script>
    </body>
 </html>

@@ -30,8 +30,15 @@ Ext.application({
 			     	    this.setRequestHeader('Authorization', 'Bearer ' + sessionStorage.getItem('GGjwt'));
 			     	   	this.setRequestHeader('Accept-Language', '<%=main.getLocale()%>');
 			     	};
+					if(sessionStorage.getItem('GGjwt') == null || sessionStorage.getItem('GGjwt') == ''){
+					var wp=window.location.href;//cant access mainview without token
+					console.log(wp);
+	            	wp=wp.replace("80/","80/401")
+					console.log(wp);
+	            	window.location.href= wp;
+					}
 								//αρχικοποίηση κεντρικού πανελ
-                    var  tt = Ext.create('MyApp.view.MainView');
+                    var  tt = Ext.create('MyApp.view.MainView4');
                     tt.show();
                     //var view = Ext.getCmp('companymainView');
                     //var menu = view.getComponent('menuPanel');

@@ -51,10 +51,7 @@ public class MainController {
 		return "gym";
 	}
 	
-	@GetMapping("/redirect")
-	public RedirectView  gotohome() {
-		return new RedirectView ("/");
-	}
+	
 	
 	@RequestMapping(value = "/signin", method = RequestMethod.POST)
 	public  ResponseEntity<?> logmein(

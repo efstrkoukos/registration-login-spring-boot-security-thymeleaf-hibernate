@@ -1,0 +1,13 @@
+@charset "ISO-8859-1";
+
+.sidePaneld .x-treelist
+{
+    background: #003263 !important;
+}
+
+.sidePanel .x-panel-body
+{
+    /* background-color: #003263 !important; */
+}
+
+.buttonr {border-radius: 8px;}

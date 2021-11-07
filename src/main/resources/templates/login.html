@@ -78,7 +78,7 @@
 						</div>
 					</div>
 				</form>
-				<div class="form-group">
+				<div class="form-group" hidden=true>
 						<span>New user? <a href="/" th:href="@{/registration}">Register
 								here</a></span>
 				</div>
@@ -89,8 +89,6 @@
 	$(function() {
 	    $('#login-submit').click(saveForm);
 	});
-
-
 	function saveForm(){
 	    $.ajax({
 	        method: "POST",
@@ -99,23 +97,21 @@
 	        success: function(response){
 	            if(response) {
 	            	var obj = JSON.parse(JSON.stringify(response));
-	            	sessionStorage.setItem("GGjwt", obj.token);
+	            	sessionStorage.setItem("GGjwt", obj.token);     	
 	            	var wp=window.location.href;
 	            	wp=wp.replace("/login","/")
-	            	window.location.href= wp;
-	
+	            	window.location.href= wp;	
 	            }
 	        },
 	        error: function (request, status, error) {
 	        	var errobj=request.responseJSON;
+	        	var element=document.getElementById('errormessage');
 	        	if(errobj.status=="401"){
-		        	var element=document.getElementById('errormessage');
-		        	element.innerHTML="<center>Λάθος Username ή Password</center>";//
+		        	element.innerHTML="<center>Λάθος Username ή Password</center>";
 		        	element.hidden = false;
 	        	}
-	        	else{
-	        		var element=document.getElementById('errormessage');
-		        	element.innerHTML="<center>Σφάλμα σύνδεσης</center>";//
+	        	else{	        		
+		        	element.innerHTML="<center>Σφάλμα σύνδεσης</center>";
 		        	element.hidden = false;	        		
 	        	}	        	
 	        }

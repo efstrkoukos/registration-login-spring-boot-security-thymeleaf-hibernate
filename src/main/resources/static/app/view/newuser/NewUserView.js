@@ -14,7 +14,7 @@ Ext.define('MyApp.view.newuser.NewUserView', {
     id: 'newuserView',
     itemId: 'newuserView',
 	title:'<div style="text-align:center;">Εγγραφή Νέου Χρήστη</div>',
-	scrollable:'y',
+	//scrollable:'y',
 	layout: {
         type: 'vbox',
         align: 'center',
@@ -29,6 +29,9 @@ Ext.define('MyApp.view.newuser.NewUserView', {
                 type: 'vbox',
                 align: 'center',
             },
+        defaults: {
+            width: 600
+        },
 	items:[
 		{
 			xtype:'fieldset',
@@ -37,7 +40,7 @@ Ext.define('MyApp.view.newuser.NewUserView', {
 				xtype:'textfield',
 				anchor:'100%',
 				padding:'10 0 0 0',
-				width:500,				
+				//width:500,				
 				fieldLabel: 'Όνομα',
 				name:'firstName',
 				allowBlank:false,
@@ -48,7 +51,7 @@ Ext.define('MyApp.view.newuser.NewUserView', {
 			},
 			{
 				xtype:'textfield',
-				anchor:'70%',
+				anchor:'100%',
 				width:500,
 				fieldLabel: 'Επώνυμο',
 				allowBlank:false,
@@ -69,7 +72,7 @@ Ext.define('MyApp.view.newuser.NewUserView', {
 			},
 			{
 				xtype:'datefield',
-				anchor:'70%',
+				anchor:'100%',
 				width:500,
 				fieldLabel: 'Ημ/νία Γέννησης',
 				name:'birthday',
@@ -254,7 +257,7 @@ Ext.define('MyApp.view.newuser.NewUserView', {
 			items:[{
 				xtype:'textfield',
 				anchor:'100%',
-				width:500,				
+				//width:500,				
 				fieldLabel: 'Τηλέφωνο',
 				name:'tel',
 				id:'telNU',
@@ -270,8 +273,8 @@ Ext.define('MyApp.view.newuser.NewUserView', {
 			},
 			{
 				xtype:'textfield',
-				anchor:'70%',
-				width:500,
+				anchor:'100%',
+				//width:500,
 				fieldLabel: 'email',
 				name:'email',
 				id:'emailNU',
@@ -287,9 +290,10 @@ Ext.define('MyApp.view.newuser.NewUserView', {
 			},
 			{
 				xtype:'textfield',
-				anchor:'70%',
-				width:500,
+				anchor:'100%',
+				//width:500,
 				fieldLabel: 'Username',
+				hidden:true,
 				name:'username',
 				id:'usrNU',
                 labelWidth: 100,
@@ -304,13 +308,28 @@ Ext.define('MyApp.view.newuser.NewUserView', {
 		},{
 		xtype:'panel',
 		title:'<div style="text-align:center;">Μετρήσεις</div>',
-		width:'70%',
+		width:600,//'70%',
 		margin:'20 0 0 0',
 		layout: {
         type: 'vbox',
         align: 'center',
     	},
 		items:[
+			{
+				xtype:'container',
+				width:'100%',
+				layout:{
+				type:'hbox',
+				align: 'center',
+				pack: 'center',
+				//margin:'0 180 0 0',
+				},
+				items:[
+					{
+				xtype:'component',//separator component
+				width:225,
+
+			},
 			{
 			xtype:'button',
 			text:'Υπολογισμός',
@@ -325,13 +344,27 @@ Ext.define('MyApp.view.newuser.NewUserView', {
 			},
 			{
 				xtype:'container',
+				margin:'0 0 0 70',
+				width:275,
+				items:[
+				
+			
+			{
+				xtype:'label',
+				id:'labelNU',
+				bind:{html:'{comm}'},
+				//margin:'0 0 0 70'
+			}]}
+			]},
+			{
+				xtype:'container',
 				flex:1,
 				layout:'hbox',
 				items:[
 					{
 				xtype:'textfield',
-				anchor:'70%',
-				width:200,
+				//anchor:'70%',
+				width:170,
 				fieldLabel: '*TDEE Στόχου',
 				name:'tdeet',
 				id:'tdeetNU',
@@ -347,8 +380,8 @@ Ext.define('MyApp.view.newuser.NewUserView', {
 			},
 			{
 				xtype:'textfield',
-				anchor:'70%',
-				width:200,
+				//anchor:'70%',
+				width:170,
 				fieldLabel: '*TDEE Διατήρησης',
 				margin:'0 0 0 20',
 				name:'tdeem',
@@ -365,8 +398,8 @@ Ext.define('MyApp.view.newuser.NewUserView', {
 			},
 			{
 				xtype:'numberfield',
-				anchor:'70%',
-				width:200,
+				//anchor:'70%',
+				width:130,
 				bind:'{bmi}',
 				fieldLabel: '*BMI',
 				margin:'0 0 0 20',
@@ -381,12 +414,12 @@ Ext.define('MyApp.view.newuser.NewUserView', {
                 allowOnlyWhitespace: false
 				
 			},
-			{
+			/*{
 				xtype:'label',
 				id:'labelNU',
 				bind:{html:'{comm}'},
 				margin:'-12 0 0 7'
-			}
+			}*/
 					
 				]
 							
@@ -399,8 +432,8 @@ Ext.define('MyApp.view.newuser.NewUserView', {
 				items:[
 					{
 				xtype:'numberfield',
-				anchor:'70%',
-				width:200,
+				//anchor:'70%',
+				width:170,
 				fieldLabel: 'Πρωτείνες Στόχου',
 				name:'protein',
                 labelWidth: 100,
@@ -416,8 +449,8 @@ Ext.define('MyApp.view.newuser.NewUserView', {
 			},
 			{
 				xtype:'numberfield',
-				anchor:'70%',
-				width:200,
+				//anchor:'70%',
+				width:170,
 				fieldLabel: 'Υδατάνθρακες Στόχου',
 				margin:'0 0 0 20',
 				name:'carbs',
@@ -434,8 +467,9 @@ Ext.define('MyApp.view.newuser.NewUserView', {
 			},
 			{
 				xtype:'numberfield',
-				anchor:'70%',
-				width:200,
+				//anchor:'70%',
+				width:130,
+				maxLength:100,
 				fieldLabel: 'Λιπαρά Στόχου',
 				margin:'0 0 0 20',
 				name:'fats',
@@ -474,7 +508,7 @@ Ext.define('MyApp.view.newuser.NewUserView', {
 	         xtype: 'label',
 	         labelWidth: '800',
 	         labelSeparator : "",
-	         html: '<i><b>*TDEE :</b> Ημερήσια πρόσληψη θερμίδων , <b>*BMI :</b> Δείκτης Μάζας Σώματος </i>',
+	         html: '<div style="text-align:center;"><i><b>*TDEE :</b> Ημερήσια πρόσληψη θερμίδων , <b>*BMI :</b> Δείκτης Μάζας Σώματος </i></div>',
 	         allowBlank: false
         }
 		

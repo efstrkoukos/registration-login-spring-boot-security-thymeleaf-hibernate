@@ -76,7 +76,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				// dont authenticate this particular request
 				.authorizeRequests().antMatchers("/authenticate",
 						"/signin",
-						"/registration**",
+						//"/registration**", unhide only for admin's war
 						"/gym**",
 						"/js/**",
 						"/css/**",
@@ -87,7 +87,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 						"/graphics/**",
 						"/scripts/gym.js",
 						"/app/view/MainView.js",
-						"/jquery/**").permitAll().
+						"/jquery/**",
+						"/401.html",
+						"/app/view/MainView3.css",
+						"/images/**").permitAll().
 				// all other requests need to be authenticated
 				anyRequest().authenticated().and().
 				formLogin()

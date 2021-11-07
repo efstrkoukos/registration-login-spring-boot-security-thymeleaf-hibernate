@@ -246,6 +246,7 @@ Ext.define('MyApp.view.MainView', {
             collapsible: false,
             items:[{xtype:'label',text:'Central'}]
         }],
+		 
 
 		onAddUserView: function(button, e, eOpts) {
         var view=Ext.getCmp('gymmainView');

@@ -22,7 +22,8 @@ Ext.define('MyApp.view.newuser.NewUserViewController', {
 	
 	
 	onCalculate: function(button, e, eOpts) {
-		var panel = button.up().up().up('panel');
+		//var panel = button.up().up().up('panel');
+		var panel = button.up('newuserview');
 		var tdee=0;	var tdeet=0;var ree=0;var sx=0;
 		var height=Ext.getCmp('heightNU');var weight=Ext.getCmp('weightNU');
 		var purpose=Ext.getCmp('purposeNU');var exce=Ext.getCmp('exce_lvlNU');
