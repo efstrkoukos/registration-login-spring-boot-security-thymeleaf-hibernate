@@ -27,7 +27,10 @@ import net.javaguides.springboot.repository.RoleRepository;
 import net.javaguides.springboot.repository.UserInfoRepository;
 import net.javaguides.springboot.repository.UserMacrosRepository;
 import net.javaguides.springboot.repository.UserRepository;
+import net.javaguides.springboot.service.EmailSenderService;
 import net.javaguides.springboot.service.UserService;
+import net.javaguides.springboot.service.UserServiceImpl;
+import net.javaguides.springboot.web.dto.Statics;
 import net.javaguides.springboot.web.dto.UserRegistrationDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -49,7 +52,10 @@ public class UserAdminRegistrationController {
 	@Autowired
 	private UserRepository userRepository;
 	private UserService userService;
-
+	
+	@Autowired
+	EmailSenderService ess;
+	
 	public UserAdminRegistrationController(UserService userService) {
 		super();
 		this.userService = userService;
@@ -82,10 +88,14 @@ public class UserAdminRegistrationController {
     	Map<String, Object> jsonResult = new HashMap<String, Object>();
     	
     	//TODO complete error handling
+    	
+    	//UserRegistrationDto userdto=UserServiceImpl.getCurrentUserByPrincipal();
+    	    	
     	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
     	String usremail=((UserDetails) auth.getPrincipal()).getUsername();
-    	
-    	List<Integer> Usergym=userRepository.findUserId(usremail);//Is this the right way?is email-userid one to one
+    	//Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    	//String currentPrincipalName = authentication.getName();
+       	List<Integer> Usergym=userRepository.findUserId(usremail);//Is this the right way?is email-userid one to one
     	if(Usergym==null) {
     		jsonResult.put("error", "error 1");
     		jsonResult.put("success", Boolean.FALSE);
@@ -103,13 +113,16 @@ public class UserAdminRegistrationController {
     	long time = date.getTime();
     	new Timestamp(time);
     	Timestamp ts=new Timestamp(time);  
+    	    	
+    	String newpass=Statics.generateRand();
     	
     	Role memberRole = roleRepository.findByName("MEMBER");
+    	
     	UserRegistrationDto newUsr =new UserRegistrationDto();
     	newUsr.setFirstName(firstName);
     	newUsr.setLastName(lastName);
     	newUsr.setEmail(email);
-    	newUsr.setPassword(password);
+    	newUsr.setPassword(newpass);
     	newUsr.setBirthday(ts);
     	newUsr.setGymid(gymsid);
     	newUsr.setGender(sex);
@@ -117,7 +130,8 @@ public class UserAdminRegistrationController {
     	newUsr.setUsername(username);
     	newUsr.setRole(memberRole);
     	try {
-    	userService.save(newUsr);}catch(Exception e) {
+    	userService.save(newUsr);
+    	}catch(Exception e) {
     		e.printStackTrace();
             jsonResult.put("success", Boolean.FALSE);
             jsonResult.put("error", "error 5");
@@ -158,7 +172,9 @@ public class UserAdminRegistrationController {
             return jsonResult;
     	}
     	
-    	
+    	//ess.sendEmail(email, "Εγγραφή στο GymGeek", Statics.emailBody(firstName,newpass)); //Real thing
+    	System.out.println("Password "+newpass);
+    	ess.sendEmail("efstrkoukos@gmail.com", "Εγγραφή στο GymGeek", Statics.emailBody(firstName,newpass));//Test purposes
     	//jsonResult.put("userid", usersid);
     	jsonResult.put("success", Boolean.TRUE);
         return jsonResult;

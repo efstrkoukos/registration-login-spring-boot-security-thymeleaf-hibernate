@@ -35,8 +35,10 @@ Ext.define('MyApp.view.newuser.NewUserView', {
 	items:[
 		{
 			xtype:'fieldset',
+			title:'Στοιχεία Επικοινωνίας',
 			margin:'20 0 0 0',
-			items:[{
+			items:[
+			{
 				xtype:'textfield',
 				anchor:'100%',
 				padding:'10 0 0 0',
@@ -71,6 +73,63 @@ Ext.define('MyApp.view.newuser.NewUserView', {
 				
 			},
 			{
+				xtype:'textfield',
+				anchor:'100%',
+				//width:500,				
+				fieldLabel: 'Τηλέφωνο',
+				name:'tel',
+				id:'telNU',
+                labelWidth: 100,
+				centered:true,
+				maxLength:100,
+				vtype:'telNumber',
+				validateOnChange: false,
+                validateOnBlur: false,
+                allowBlank: false,
+                allowOnlyWhitespace: false
+				
+			},
+			{
+				xtype:'textfield',
+				anchor:'100%',
+				//width:500,
+				fieldLabel: 'email',
+				name:'email',
+				id:'emailNU',
+                labelWidth: 100,
+				centered:true,
+				maxLength:100,
+				vtype:'email',
+				validateOnChange: false,
+                validateOnBlur: false,
+                allowBlank: false,
+                allowOnlyWhitespace: false
+				
+			},
+			{
+				xtype:'textfield',
+				anchor:'100%',
+				//width:500,
+				fieldLabel: 'Username',
+				hidden:true,
+				disabled:true,
+				name:'username',
+				id:'usrNU',
+                labelWidth: 100,
+				centered:true,
+				maxLength:100,
+				validateOnChange: false,
+                validateOnBlur: false,
+                allowBlank: false,
+                allowOnlyWhitespace: false
+				
+			}]	
+		},
+		{
+			xtype:'fieldset',
+			margin:'20 0 0 0',
+			items:[
+			{
 				xtype:'datefield',
 				anchor:'100%',
 				width:500,
@@ -94,9 +153,9 @@ Ext.define('MyApp.view.newuser.NewUserView', {
 				
 			},
 			{
-			xtype      : 'fieldcontainer',
+			xtype      : 'radiogroup',
             fieldLabel : 'Φύλο',
-            defaultType: 'radiofield',
+            //defaultType: 'radiogroup',
 			id:'radiofieldNU',
 			allowBlank:false,
             defaults: {
@@ -251,62 +310,6 @@ Ext.define('MyApp.view.newuser.NewUserView', {
 			]
 		},
 		{
-			xtype:'fieldset',
-			title:'Στοιχεία Επικοινωνίας',
-			margin:'20 0 0 0',
-			items:[{
-				xtype:'textfield',
-				anchor:'100%',
-				//width:500,				
-				fieldLabel: 'Τηλέφωνο',
-				name:'tel',
-				id:'telNU',
-                labelWidth: 100,
-				centered:true,
-				maxLength:100,
-				vtype:'telNumber',
-				validateOnChange: false,
-                validateOnBlur: false,
-                allowBlank: false,
-                allowOnlyWhitespace: false
-				
-			},
-			{
-				xtype:'textfield',
-				anchor:'100%',
-				//width:500,
-				fieldLabel: 'email',
-				name:'email',
-				id:'emailNU',
-                labelWidth: 100,
-				centered:true,
-				maxLength:100,
-				vtype:'email',
-				validateOnChange: false,
-                validateOnBlur: false,
-                allowBlank: false,
-                allowOnlyWhitespace: false
-				
-			},
-			{
-				xtype:'textfield',
-				anchor:'100%',
-				//width:500,
-				fieldLabel: 'Username',
-				hidden:true,
-				disabled:true,
-				name:'username',
-				id:'usrNU',
-                labelWidth: 100,
-				centered:true,
-				maxLength:100,
-				validateOnChange: false,
-                validateOnBlur: false,
-                allowBlank: false,
-                allowOnlyWhitespace: false
-				
-			}]	
-		},{
 		xtype:'panel',
 		title:'<div style="text-align:center;">Μετρήσεις</div>',
 		width:600,//'70%',

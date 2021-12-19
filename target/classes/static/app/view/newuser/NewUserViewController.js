@@ -5,7 +5,8 @@ Ext.define('MyApp.view.newuser.NewUserViewController', {
 	onChange:function(button, e, eOpts){
 		if(Ext.getCmp('tdeetNU').getValue() != "")
 		{
-			var panel = button.up().up().up().up('panel');
+			var panel = button.up('newuserview');
+			//var panel = button.up().up().up().up('panel');
 			Ext.getCmp('tdeetNU').setValue();
 			Ext.getCmp('tdeemNU').setValue();
 			Ext.getCmp('fatsNU').setValue();
@@ -53,9 +54,9 @@ Ext.define('MyApp.view.newuser.NewUserViewController', {
 			}
 			tdee=ree*exce.getValue();
 			tdee=Number((tdee).toFixed());
-				if(purpose.getValue()=="LO")
+				if(purpose.getValue()==-1)
 					tdeet=Number((tdee-(tdee*0.2)).toFixed());
-				else if(purpose.getValue()=="BU")
+				else if(purpose.getValue()==1)
 					tdeet=Number((tdee+(tdee*0.2)).toFixed());
 				else
 					tdeet=Number((tdee).toFixed());
@@ -74,7 +75,7 @@ Ext.define('MyApp.view.newuser.NewUserViewController', {
 			
 		}
 		else{
-		Ext.Msg.alert("Προσοχή","Πρέπει να συμπληρώσετε όλα τα στοιχεία του πρώτου πλαισίου για να γίνει υπολογισμός");}
+		Ext.Msg.alert("Προσοχή","Πρέπει να συμπληρώσετε όλα τα στοιχεία του δεύτερου πλαισίου για να γίνει υπολογισμός");}
 		
 		},
 		

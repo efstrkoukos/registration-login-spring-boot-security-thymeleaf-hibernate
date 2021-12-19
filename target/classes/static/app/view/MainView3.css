@@ -11,3 +11,12 @@
 }
 
 .buttonr {border-radius: 8px;}
+
+.top-user-name
+{
+	background:none;
+    border:none;
+    margin:0;
+    padding:0;
+    cursor: pointer;
+}

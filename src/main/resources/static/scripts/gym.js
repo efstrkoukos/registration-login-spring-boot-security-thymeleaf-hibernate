@@ -96,7 +96,8 @@ Ext.application({
 		Ext.form.VTypes["passwordMask"]=/./;
 		
         Ext.form.Field.prototype.invalidText = 'Το περιεχόμενο του πεδίου δεν είναι αποδεκτό';
-        Ext.form.Field.prototype.msgTarget = 'under';
+       
+		Ext.form.Field.prototype.msgTarget = 'qtip';
 
         Ext.form.TextField.prototype.blankText = 'Το πεδίο είναι υποχρεωτικό';
         Ext.form.TextField.prototype.minLengthText = 'Το μικρότερο αποδεκτό μήκος για το πεδίο είναι {0}';
@@ -106,16 +107,17 @@ Ext.application({
 
 
         Ext.form.RadioGroup.prototype.blankText = 'Πρέπει να επιλέξετε κάποιο πεδιο';
-        Ext.form.RadioGroup.prototype.msgTarget = 'under';
+        //Ext.form.RadioGroup.prototype.msgTarget = 'under';
+		Ext.form.RadioGroup.prototype.msgTarget = 'under';
 
         Ext.form.ComboBox.prototype.blankText = 'Πρέπει να επιλέξετε κάποιο στοιχείο της λίστας';
-        Ext.form.ComboBox.prototype.msgTarget = 'under';
+        Ext.form.ComboBox.prototype.msgTarget = 'qtip';
 
         Ext.form.NumberField.prototype.minText = 'Η μικρότερη τιμή του πεδίου είναι {0}';
         Ext.form.NumberField.prototype.maxText = 'Η μεγαλύτερη τιμή του πεδίου είναι {0}';
         Ext.form.NumberField.prototype.nanText = '{0} δεν είναι αποδεκτός αριθμός';
         Ext.form.NumberField.prototype.blankText = 'Το πεδίο είναι υποχρεωτικό';
-        Ext.form.NumberField.prototype.msgTarget = 'under';
+        Ext.form.NumberField.prototype.msgTarget = 'qtip';
 
         Ext.form.DateField.prototype.disabledDaysText = 'Ανενεργό';
         Ext.form.DateField.prototype.disabledDatesText = 'Ανενεργό';

@@ -54,8 +54,9 @@ Ext.define('MyApp.view.NavTree', {
 											id: 'reg_users',
 				                                
 						                }, {
-						                    text: 'Μενού2',
-						                    iconCls: 'x-fa fa-plus-square-o',
+						                    text: 'Όλοι οι χρήστες',
+											id: 'all_users',
+						                    iconCls: 'x-fa fa-users',
 						                    viewType: 'pageblank',
 						                    leaf: true
 						                }]

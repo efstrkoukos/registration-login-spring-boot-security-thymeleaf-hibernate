@@ -1,14 +1,19 @@
 package net.javaguides.springboot.web;
 
+import java.io.IOException;
 import java.util.HashMap;
 import net.javaguides.springboot.JwtAuthenticationController;
 import net.javaguides.springboot.JwtTokenUtil;
 import net.javaguides.springboot.model.JwtRequest;
 import net.javaguides.springboot.model.JwtResponse;
+import net.javaguides.springboot.service.EmailSenderService;
 import net.javaguides.springboot.service.UserServiceImpl;
+import net.javaguides.springboot.web.dto.Statics;
 
 import java.util.Map;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +46,9 @@ public class MainController {
 	@Autowired
 	private UserServiceImpl userDetailsService;
 	
+	@Autowired
+	private EmailSenderService ess;
+	
 	@GetMapping("/login")
 	public String login() {
 		return "login";
@@ -50,6 +58,14 @@ public class MainController {
 	public String home() {
 		return "gym";
 	}
+	
+	/*Testing purposes
+	 * @GetMapping("/sendmail") public String sendmail() throws AddressException,
+	 * MessagingException, IOException { ess.sendEmail("efstrkoukos@gmail.com",
+	 * "TestSubject", "Thebodyofthe email");
+	 * 
+	 * return "ok"; }
+	 */
 	
 	
 	
@@ -67,7 +83,7 @@ public class MainController {
 				.loadUserByUsername(authenticationRequest.getUsername());
 		
 		final String token = jwtTokenUtil.generateToken(userDetails);
-		
+		//TODO add check for Role and handle it
 		return ResponseEntity.ok(new JwtResponse(token));
 	}
 	private void authenticate(String username, String password) throws Exception {

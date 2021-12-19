@@ -41,9 +41,12 @@ Ext.define('MyApp.view.MainView3', {
                     },
                     '->'                   
                     ,  {
-                        xtype: 'tbtext',
+                        xtype: 'button',
                         text: '<strong>Έξοδος</strong>',
-                        cls: 'top-user-name'
+                        cls: 'top-user-name',
+						listeners: {
+        					click: {fn:'logoutbtn',scope:'controller'}
+						}
                     } 
                 ]
             },
