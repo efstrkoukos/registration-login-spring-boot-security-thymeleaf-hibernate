@@ -15,10 +15,19 @@ import org.springframework.transaction.annotation.Transactional;
 import net.javaguides.springboot.model.User;
 import net.javaguides.springboot.model.UserInfo;
 
-@Repository
+
 @Transactional(propagation = Propagation.REQUIRES_NEW)
 @RepositoryRestResource(collectionResourceRel = "user_info", path = "user_info")
 public interface UserInfoRepository extends JpaRepository<UserInfo, Long>{
+
+	
+	@Query(
+            value = "SELECT o FROM UserInfo o"
+                    + " WHERE o.user_id =:#{#userId} ",
+            nativeQuery = false
+    )
+	
+    public List<UserInfo> getUserProgress(@Param("userId") Long userId);
 	/*
 	 * @SuppressWarnings("unchecked") UserInfo save (UserInfo entity);
 	 */	

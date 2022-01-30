@@ -166,7 +166,7 @@ Ext.define('MyApp.view.newuser.NewUserView', {
                 {
                     boxLabel  : 'Άνδρας',
                     name      : 'sex',
-                    inputValue: '0',
+                    inputValue: 0,
                     id        : 'radio1',
 					listeners:{
 					change:  {
@@ -177,7 +177,7 @@ Ext.define('MyApp.view.newuser.NewUserView', {
                 }, {
                     boxLabel  : 'Γυναίκα',
                     name      : 'sex',
-                    inputValue: 'l',
+                    inputValue: 1,
                     id        : 'radio2',
 					margin:'0 0 0 50',
 					listeners:{

@@ -1,5 +1,5 @@
 /**
- * 
+ * //TODO handle 401 to redirect to login(beforerender in main)//expired jwt also
  */
 Ext.define('MyApp.view.MainView4', {
     extend: 'Ext.container.Viewport',
@@ -29,6 +29,9 @@ Ext.define('MyApp.view.MainView4', {
 							region : 'center',
 							bodyPadding : 2,
 		});
+		var centered = Ext.getCmp('contentPanel');
+		var home = Ext.create('MyApp.view.MainCardPanel', {});
+		centered.add(home);
 		var centerPanel = Ext.create('Ext.panel.Panel', {
 							layout : {
 								type : 'hbox',// was 'border'
@@ -53,11 +56,26 @@ Ext.define('MyApp.view.MainView4', {
 								items: [{
 										xtype: 'component',
 										reference: 'MyLogo',
-										cls: 'sencha-logo',
+										cls: 'my-logo',
 										html: '<div class="main-logo"><img src="../../graphics/images/mylogotest1.png"></div>',
 										layout:'fit',
 										height : '100%', 
-										margin: '0 0 0 20'
+										margin: '0 0 0 20',
+										listeners: {
+										       'afterrender': function(cmp) {
+										           cmp.el.on('click', function() {
+										              var center = Ext.getCmp('contentPanel');//view.getComponent('contentPanel');
+												        center.removeAll();
+												        var viewsub = Ext.create('MyApp.view.MainCardPanel');
+												        center.add(viewsub);
+										           });
+													console.log(cmp);
+													//cmp.style.cursor="pointer";
+												  //cmp.el.dom.style.cursor="pointer";
+								                  //cmp.inputEl.dom.style.cursor="pointer";
+								                  //cmp.inputWrap.dom.firstChild.style.cursor="pointer";
+										        }
+										    }
 									}, {
 										margin: '0 0 0 8',
 										ui: 'header',
@@ -70,7 +88,10 @@ Ext.define('MyApp.view.MainView4', {
 										iconCls: 'fa fa-bell',
 										cls:'buttonr',
 										text:'Ειδοποιήσεις',
-										margin:'0 20 0 0'
+										margin:'0 20 0 0',
+										listeners:{
+											afterrender:{fn:'notificationsPolling',scope:'controller'}
+										}
 									} , {
 										xtype: 'button',
 										text: '<strong>Έξοδος</strong>',

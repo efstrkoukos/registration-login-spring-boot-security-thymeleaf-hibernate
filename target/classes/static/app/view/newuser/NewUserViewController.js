@@ -97,6 +97,7 @@ Ext.define('MyApp.view.newuser.NewUserViewController', {
                 submitfun();
             }
             if (buttonText == "no") {
+			Ext.getCmp('submitbtnNU').disabled=false;
                 return false;
             }
         };
@@ -106,10 +107,12 @@ Ext.define('MyApp.view.newuser.NewUserViewController', {
 		var submitfun = function(){
             var form = button.up().up('panel').down('form');
                 values = form.getValues();
+				let wait=Ext.Msg.wait('Παρακαλώ περιμένετε..');
 			//debugger;
 
 
 				var successCallback = function(resp, ops) {
+					wait.close();
                         Ext.Msg.alert('Επιτυχής Εγγραφή', 'Ο χρήστης '+values.firstName+' '+values.lastName+' είναι πλέον μέλος της υπηρεσίας!');
 						var jsonresp=Ext.JSON.decode(resp.responseText);
 						var uid=jsonresp.userid;
@@ -122,6 +125,7 @@ Ext.define('MyApp.view.newuser.NewUserViewController', {
 
                     // Failure
                     var failureCallback = function(resp, ops) {
+						wait.close();
 						Ext.getCmp('submitbtnNU').disabled=false;
                         Ext.Msg.alert('Αποτυχία Εγγραφής', 'Η εγγραφή του χρήστη απέτυχε');
                     };

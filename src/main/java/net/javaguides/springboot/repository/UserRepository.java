@@ -44,7 +44,7 @@ public interface UserRepository extends PagingAndSortingRepository<User, Long>{
 	
 
 	@Query(
-            value = "SELECT o.firstName,o.lastName,o.email,o.birthday,o.gender,o.telephone,o.enabled FROM User o "
+            value = "SELECT o FROM User o "
                     + " WHERE o.gymid =:#{principal.id} ",
             nativeQuery = false
     )

@@ -95,4 +95,22 @@ public class MainController {
 			throw new Exception("INVALID_CREDENTIALS", e);
 		}
 	}
+	
+	@RequestMapping("/getSession")
+    @ResponseBody
+    String getSession()
+    		throws Exception {
+				return "Connection success";
+		
+	}
+	
+	@RequestMapping("/getNotifs")
+    @ResponseBody
+    String getNotifs()
+    		throws Exception {
+				return "dummy_notification";//TODO this is dummy to see if poller works
+		
+	}
+	
+	
 }

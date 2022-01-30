@@ -7,7 +7,14 @@
 
 .sidePanel .x-panel-body
 {
-    /* background-color: #003263 !important; */
+    /*  background-color: #003263 !important;  */
+}
+.grayIcon {
+    color: #DEDEDE;
+}
+
+.my-logo{
+	cursor: pointer;
 }
 
 .buttonr {border-radius: 8px;}
@@ -19,4 +26,70 @@
     margin:0;
     padding:0;
     cursor: pointer;
+}
+.tra-button{
+	background-color: transparent !important;
+	border-color:transparent !important;
+	transition-duration: 0.4s;
+	border: none;
+}
+
+.tra-button:hover {
+  
+  color:grey!important;
+}
+.c1-button{
+	background-color: transparent !important;
+	border-color:transparent !important;
+	transition-duration: 0.4s;
+	border: none;
+}
+
+.c1-button:hover {
+  
+  color:green!important;
+}
+.userno-button{
+	background-color: transparent !important;
+	border-color:transparent !important;
+	transition-duration: 0.4s;
+	border: none;
+}
+
+.userno-button:hover {
+  
+  color:grey!important;
+}
+.scale-button{
+	background-color: transparent !important;
+	border-color:transparent !important;
+	transition-duration: 0.4s;
+	border: none;
+}
+
+.scale-button:hover {
+  
+  color:grey!important;
+}
+.c2-button{
+	background-color: transparent !important;
+	border-color:transparent !important;
+	transition-duration: 0.4s;
+	border: none;
+}
+
+.c2-button:hover {
+  
+  color:red!important;
+}
+.top-button{
+	background-color: transparent !important;
+	border-color:transparent !important;
+	transition-duration: 0.4s;
+	border: none;
+}
+
+.top-button:hover {
+  
+  color:#BEAF1C!important;
 }

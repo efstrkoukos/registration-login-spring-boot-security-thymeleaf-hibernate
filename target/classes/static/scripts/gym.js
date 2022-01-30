@@ -30,11 +30,24 @@ Ext.application({
 			     	    this.setRequestHeader('Authorization', 'Bearer ' + sessionStorage.getItem('GGjwt'));
 			     	   	this.setRequestHeader('Accept-Language', '<%=main.getLocale()%>');
 			     	};
-					if(sessionStorage.getItem('GGjwt') == null || sessionStorage.getItem('GGjwt') == ''){
+					//Is the session expired?
+					//debugger;
+					var unauthorized=0;
+					Ext.Ajax.request({
+				        url: '/getSession',
+				        method: 'GET',
+				        failure : function(response) {
+				                if(response.status==401){//token expired
+									unauthorized=1;
+									var wp=window.location.href;//cant access mainview without token
+					            	wp=wp+"login"//TODO when domain name
+					            	window.location.href= wp;
+									}
+							}
+				        });
+					if(sessionStorage.getItem('GGjwt') == null || sessionStorage.getItem('GGjwt') == '' || unauthorized==1){
 					var wp=window.location.href;//cant access mainview without token
-					console.log(wp);
-	            	wp=wp.replace("80/","80/401")
-					console.log(wp);
+	            	wp=wp+"login"//TODO when domain name
 	            	window.location.href= wp;
 					}
 								//αρχικοποίηση κεντρικού πανελ

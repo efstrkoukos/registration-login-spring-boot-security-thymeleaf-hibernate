@@ -41,7 +41,7 @@ public class UserInfo {
 	@Column(name = "date")
 	private Timestamp date;
 	
-	@OneToOne(mappedBy = "user_info_id",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToOne(mappedBy = "user_info_id",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private UserMacros usermacros;
 	
 
@@ -53,6 +53,12 @@ public class UserInfo {
 		this.usermacros = usermacros;
 	}
 
+	
+
+	public UserInfo() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	public UserInfo(Long user_id, Long weight, Long height, Double bmi, Long goal, Double exce, Timestamp date) {
 		super();

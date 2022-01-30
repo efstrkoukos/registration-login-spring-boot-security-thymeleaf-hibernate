@@ -1,14 +1,22 @@
 <!DOCTYPE html>
 <html>
    <head>
-   
+   <title>GymGeek</title>
+	<link rel="icon" type="image/x-icon" href="graphics/images/favicon.png">
     <script src="/extjs/build/ext-all.js"></script>
     <link rel = "stylesheet" type = "text/css" 
          href ="/extjs/build/classic/theme-triton/resources/theme-triton-all.css"/>
    <link href = "https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel = "stylesheet" />
      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta http-equiv="Cache-control" content="public" />
+    
+<!--     <script type = "text/javascript" 
+         src = "https://cdnjs.cloudflare.com/ajax/libs/extjs/6.0.0/packages/charts/classic/charts.js"></script>
+      <link href = "https://cdnjs.cloudflare.com/ajax/libs/extjs/6.0.0/packages/charts/classic/classic/resources/charts-all.css" 
+         rel = "stylesheet" /> -->
 
+<script type="text/javascript" src="/extjs/build/packages/charts/classic/charts.js"></script>
+<link rel="stylesheet" type="text/css"  href="/extjs/build/packages/charts/classic/triton/resources/charts-all.css">
 	     
    </head>
    
@@ -30,13 +38,40 @@
 		</div>
 	</div> -->
           
-       <link rel="stylesheet" href="graphics/MyApp-all.css"/>
-       <link rel="stylesheet" type="text/css" href="/app/view/MainView3.css"/>
+        <link rel="stylesheet" href="graphics/MyApp-all.css"/>
+       <link rel="stylesheet" type="text/css" href="/app/view/MainView3.css"/> 
 <!--<script src="/portal/static/userapp/ext/src/grid/MultiSearch.js"></script> -->
 <!-- <div id='loading-mask'></div><div id='loading'><div class='loading-indicator'>Gyms are never gonna be the same again...</div></div> -->
 <div id='loadin-mask'></div><div id='loadin'><div class='loadin-indicator'></div></div>
 <script type="text/javascript" src="scripts/gym.js"></script>
 <script type="text/javascript">Ext.onReady(function() {  
+	Ext.Ajax.on('requestexception', function (conn, response) {
+        if (Ext.isDefined(response.responseText)) {
+        	//Hack until we solve jersey response problem.
+            try {
+                response.responseText = response.responseText.normalize();
+            }
+            catch (e) {
+                console.log('string.normalize() doesn\'t work in this browser.');
+            }
+            response.responseText = response.responseText.replace(/\x00/g, '');
+            //on unauthοrized  go to login page
+            if(response.status == 401){
+            	Ext.MessageBox.show({
+					title: 'Λήξη Σύνδεσης',
+					msg: 'Η σύνδεσή σας έληξε',
+					buttons: Ext.Msg.OK,
+					fn: function(buttonId) {
+						if (buttonId === "ok") {
+							var wp=window.location.href;//cant access mainview without token
+							wp=wp+"login"//TODO when domain name
+							window.location.href= wp;
+						}
+					}
+				});
+            }
+        }
+    });
 	setTimeout(function(){  
 		Ext.get('loadin').remove();  
 		Ext.get('loadin-mask').fadeOut({remove:true}); }, 250);}); </script>

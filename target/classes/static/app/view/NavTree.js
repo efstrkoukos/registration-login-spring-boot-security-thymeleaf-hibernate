@@ -36,7 +36,19 @@ Ext.define('MyApp.view.NavTree', {
 						    }],
 						    root: {
 						        expanded: true,
-						        children: [{
+						        children: [
+										{										
+						                text: 'Αρχική Σελίδα',
+						                iconCls: 'x-fa fa-home',
+										leaf: true,
+						                viewType: 'admindashboard',
+						                routeId: 'home-page', // routeId defaults to viewType
+						                expanded: false,
+						                selectable: false,
+						                routeId: 'home-page',
+						                id: 'home-page',	
+										},
+										{
 						                text: 'Χρήστες',
 						                iconCls: 'x-fa fa-user',
 						                viewType: 'admindashboard',
